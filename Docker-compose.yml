@@ -1,0 +1,23 @@
+
+version: '3'
+services:
+  mysql-docker-demo:
+    image: mysql:5.6
+    environment:
+    - MYSQL_ROOT_PASSWORD=qwe123
+    - MYSQL_DATABASE=dockerapp
+    - MYSQL_USER=eric
+    - MYSQL_PASSWORD=qwe123
+    volumes:
+    - /data/mysql
+  dockerapp:
+    image: dockerapp
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+    - mysql-docker-demo
+    ports:
+    - 8080:8080
+    volumes:
+      - /data/dockerapp
